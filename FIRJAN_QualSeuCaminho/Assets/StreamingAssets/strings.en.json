@@ -13,6 +13,10 @@
   { "key": "gameover.p1", "value": "Decision Making" },
   { "key": "gameover.p2", "value": "Critical Thinking" },
   { "key": "gameover.p3", "value": "Problem Solving" },
+
+
+    { "key": "end.message", "value": "Thanks! Your data has been saved to your profile!" },
+
 	
     { "key": "ui.timeout", "value": "Timeout" },
     { "key": "ui.confirm", "value": "Confirm" },

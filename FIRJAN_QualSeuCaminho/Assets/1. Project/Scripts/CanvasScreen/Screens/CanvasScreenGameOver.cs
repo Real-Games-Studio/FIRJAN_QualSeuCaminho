@@ -19,21 +19,17 @@ public class CanvasScreenGameOver : CanvasScreen
 
     private NFCReceiver _nfcReceiver;
 
-    private void Awake()
+    public override void TurnOff()
     {
-        // try to find NFCReceiver in scene (use newer API when available)
-        _nfcReceiver = FindFirstOrAny<NFCReceiver>();
         if (_nfcReceiver != null)
         {
-            _nfcReceiver.OnNFCConnected.AddListener(OnNfcConnected);
-            _nfcReceiver.OnNFCDisconnected.AddListener(OnNfcDisconnected);
+            _nfcReceiver.OnNFCConnected.RemoveListener(OnNfcConnected);
+            _nfcReceiver.OnNFCDisconnected.RemoveListener(OnNfcDisconnected);
         }
 
-        if (serverComunication == null)
-        {
-            serverComunication = FindFirstOrAny<ServerComunication>();
-        }
+        base.TurnOff();
     }
+
 
     // Helper to support multiple Unity versions: prefer FindFirstObjectByType/FindAnyObjectByType when available
     private T FindFirstOrAny<T>() where T : UnityEngine.Object
@@ -91,6 +87,19 @@ public class CanvasScreenGameOver : CanvasScreen
         catch (System.Exception ex)
         {
             Debug.LogError("Error updating UI: " + ex.Message);
+        }
+
+
+        if (serverComunication == null)
+        {
+            serverComunication = FindFirstOrAny<ServerComunication>();
+        }
+        // try to find NFCReceiver in scene (use newer API when available)
+        _nfcReceiver = FindFirstOrAny<NFCReceiver>();
+        if (_nfcReceiver != null)
+        {
+            _nfcReceiver.OnNFCConnected.AddListener(OnNfcConnected);
+            _nfcReceiver.OnNFCDisconnected.AddListener(OnNfcDisconnected);
         }
 
         // set feedback to yellow (no card)
