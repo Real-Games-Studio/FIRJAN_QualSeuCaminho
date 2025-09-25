@@ -1,0 +1,94 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "title": "DECISION 1: Automation crisis and cost cutting",
+      "description": "The multinational is experiencing a drop in productivity and management proposes automating some operational functions. This implies staff reductions and an immediate efficiency gain. HR proposes an alternative with reskilling, which has a higher short-term cost. What do you suggest?",
+      "answers": [
+        { "text": "Approve partial automation with a reskilling and redeployment plan for affected employees.", "feedback": "You saw the whole picture. Efficiency yes, but without forgetting people. The factory moves forward resiliently.", "casas": 3 },
+        { "text": "Approve full automation, cutting costs and dismissing part of the team with a social plan.", "feedback": "The immediate gain was real but the organizational climate was shaken.", "casas": 2 },
+        { "text": "Fail to decide in time.", "feedback": "Management acted alone. You were left out and lost influence in the process.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q2",
+      "title": "DECISION 2: Energy sustainability",
+      "description": "The factory's energy bill has risen 30%. The board suggests installing solar panels, which have a higher initial cost but reduce expenses in the long term. Finance argues for negotiating discounts with the supplier for immediate impact. What's your solution?",
+      "answers": [
+        { "text": "Install solar power, investing in sustainable energy.", "feedback": "You chose a long-term vision. The factory reduced costs, gained autonomy and strengthened its sustainable image, but required a significant unplanned upfront investment.", "casas": 3 },
+        { "text": "Negotiate temporary discounts with the supplier.", "feedback": "You lowered costs in the short term but missed the chance to invest in more lasting solutions.", "casas": 2 },
+        { "text": "Fail to act in time.", "feedback": "Costs remained high and competitors advanced with more modern energy solutions.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q3",
+      "title": "DECISION 3: Expansion proposal with an external partner",
+      "description": "A startup offers the multinational a technology that could triple production with low environmental impact. But it requires privileged access to data and exclusivity in the contract. Part of the board fears security risks and loss of autonomy. What's your decision?",
+      "answers": [
+        { "text": "Approve the partnership and grant the necessary access and exclusivity.", "feedback": "The partnership unlocked potential gains, but you must monitor data security and contractual terms closely.", "casas": 3 },
+        { "text": "Reject the exclusivity and seek a more guarded collaboration.", "feedback": "You protected autonomy but may have limited the technology's benefits.", "casas": 2 },
+        { "text": "Decline to decide in time.", "feedback": "The opportunity passed and competitors moved ahead.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q4",
+      "title": "DECISION 4: Defective raw material",
+      "description": "A major batch of raw material arrived defective, delaying production across several departments. Some of the team proposes immediately contacting the supplier and demanding replacement, while others suggest reorganizing internal flow to minimize losses before acting externally. Which path do you choose?",
+      "answers": [
+        { "text": "Reorganize internal flow to keep part of production active while negotiating with the supplier.", "feedback": "You bought time, reduced losses and demonstrated adaptability.", "casas": 3 },
+        { "text": "Contact the supplier immediately and wait for batch replacement.", "feedback": "Replacement arrived, but downtime impacted some deliveries.", "casas": 2 },
+        { "text": "Fail to act in time.", "feedback": "The delay worsened and compromised delivery of important orders.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q5",
+      "title": "DECISION 5: Local climate crisis and environmental responsibility",
+      "description": "Heavy rains hit the region and parts of the factory surroundings were flooded, although the factory itself was not directly affected. The city requests voluntary collaboration with the cleanup effort, while legal advises caution about admitting liability. What is the best action?",
+      "answers": [
+        { "text": "Accept the request and mobilize internal volunteers for the cleanup, providing logistical support.", "feedback": "You turned a situation into a bridge with the community. The factory became seen as an ally.", "casas": 3 },
+        { "text": "Donate materials and equipment for the cleanup without involving employees directly.", "feedback": "The help was recognized, but the lack of human participation gave an impression of distance from the community.", "casas": 2 },
+        { "text": "Fail to act in time.", "feedback": "Other companies helped in the effort. The factory's absence was noticed and received negative comments due to omission.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q6",
+      "title": "DECISION 6: Internal training or external hiring",
+      "description": "A new project requires technical skills the current team does not yet master. HR suggests investing in internal training to develop the team, while the project manager proposes hiring external specialists to accelerate delivery. What's your decision?",
+      "answers": [
+        { "text": "Invest in internal training to upskill the team.", "feedback": "The team grew in knowledge, strengthened bonds and became better prepared for future challenges.", "casas": 3 },
+        { "text": "Hire external specialists to execute the project.", "feedback": "The project advanced quickly, but the internal team felt less valued.", "casas": 2 },
+        { "text": "Postpone the decision.", "feedback": "Delay increased and competitors moved ahead with similar projects.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q7",
+      "title": "DECISION 7: Improvement to the rest area",
+      "description": "Employees suggest improvements to the factory rest area. HR defends investing in a more comfortable space, while part of the board prefers to keep it as is and prioritize other areas. What decision do you make?",
+      "answers": [
+        { "text": "Invest in rest area improvements focused on comfort and well-being.", "feedback": "Employees felt valued, organizational climate strengthened and productivity improved with better quality of life.", "casas": 3 },
+        { "text": "Make only small low-cost adaptations.", "feedback": "There was some relief but well-being issues largely remained.", "casas": 2 },
+        { "text": "Do nothing.", "feedback": "Discontent grew and negatively impacted team motivation.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q8",
+      "title": "DECISION 8: Continuous feedback",
+      "description": "Internal surveys show employees receive little feedback on their performance. HR proposes implementing short feedback cycles, while part of leadership prefers to keep only the annual review. What's your decision?",
+      "answers": [
+        { "text": "Implement short, continuous feedback cycles.", "feedback": "Employees felt supported, grew faster and the culture of development strengthened.", "casas": 3 },
+        { "text": "Keep only the annual review.", "feedback": "The company maintained control and routine but missed chances for quicker adjustments.", "casas": 2 },
+        { "text": "Do nothing.", "feedback": "Perceived lack of recognition increased and generated demotivation.", "casas": 1 }
+      ]
+    },
+    {
+      "id": "Q9",
+      "title": "DECISION 9: Hybrid work policy",
+      "description": "After the pandemic, management must decide whether the company will remain 100% remote, adopt a hybrid model, or return to onsite work. HR advocates hybrid as a balance, but some leadership fears productivity loss outside the office. What is your choice?",
+      "answers": [
+        { "text": "Return to fully onsite work.", "feedback": "In-person interaction resumed, but some talent chose to leave in search of flexibility.", "casas": 2 },
+        { "text": "Adopt a hybrid model, balancing physical presence and flexibility.", "feedback": "Team satisfaction increased, talent was retained and collaboration found new forms.", "casas": 3 },
+        { "text": "Fail to decide within the deadline.", "feedback": "Lack of clarity generated insecurity among employees and a drop in engagement.", "casas": 1 }
+      ]
+    }
+  ]
+}

@@ -7,8 +7,6 @@ using RealGames;
 public class ScreenCanvasController : MonoBehaviour
 {
     public static ScreenCanvasController instance;
-    public AppConfig appConfig;
-
     public string previusScreen;
     public string currentScreen;
     public string inicialScreen;
@@ -43,7 +41,7 @@ public class ScreenCanvasController : MonoBehaviour
         {
             inactiveTimer += Time.deltaTime * 1;
 
-            if (inactiveTimer >= appConfig.maxInactiveTime)
+            if (inactiveTimer >= GameDataLoader.instance.loadedConfig.maxInactiveTime)
             {
                 ResetGame();
             }

@@ -6,9 +6,8 @@ using RealGames;
 public class ExempleUsage : MonoBehaviour
 {
     public AppConfig appConfig;
-
     public ImageWrapper image;
-    public AudioWrapper audio;
+    public AudioWrapper audioWrapper;
     public VideoWrapper video;
 
     void Start()
@@ -17,11 +16,11 @@ public class ExempleUsage : MonoBehaviour
         appConfig = JsonLoader.LoadGameSettings(jsonFilePath);
         image.LoadAndApplySprite();
 
-        audio.LoadAndPlayAudio(true);
+    audioWrapper.LoadAndPlayAudio(true);
 
         video.LoadAndPlayVideo(false, () =>
         {
-            Debug.Log("Vídeo carregado e pronto para tocar.");
+            Debug.Log("Vï¿½deo carregado e pronto para tocar.");
             //video.targetVideoPlayer.Play();
         });
     }

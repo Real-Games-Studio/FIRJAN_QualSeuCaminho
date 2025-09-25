@@ -1,0 +1,17 @@
+{
+  "items": [
+    { "key": "cta.title", "value": "With Path?" },
+    { "key": "cta.description", "value": "Touch to Start" },
+    { "key": "cta.button", "value": "Start" },
+	
+	{ "key": "narrativa.title", "value": "With Path?" },
+    { "key": "narrativa.description", "value": "Narrativa em EN..." },
+    { "key": "narrativa.button", "value": "Let's go!" },
+	
+    { "key": "ui.timeout", "value": "Timeout" },
+    { "key": "ui.confirm", "value": "Confirm" },
+    { "key": "ui.cancel", "value": "Cancel" },
+    { "key": "lang.pt", "value": "Português" },
+    { "key": "lang.en", "value": "English" }
+  ]
+}
