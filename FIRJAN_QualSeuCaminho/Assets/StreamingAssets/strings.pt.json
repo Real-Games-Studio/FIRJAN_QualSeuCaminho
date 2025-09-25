@@ -9,6 +9,13 @@
     { "key": "narrativa.button", "value": "Vamos Lá!" },
 	
 	
+    { "key": "gameover.title", "value": "FIM" },
+    { "key": "gameover.lastMessage", "value": "Suas decisões impactaram de maneira positiva nosso crescimento. Habilidades de Pensamento crítico, tomada de decisão e solução de problemas foram adicionados ao seu cartão de progresso" },
+    { "key": "gameover.p1", "value": "Tomada de Decisão" },
+    { "key": "gameover.p2", "value": "Pensamento Crítico" },
+    { "key": "gameover.p3", "value": "Solução de Problemas" },
+	
+	
     { "key": "ui.timeout", "value": "Tempo esgotado" },
     { "key": "ui.confirm", "value": "Confirmar" },
     { "key": "ui.cancel", "value": "Cancelar" },

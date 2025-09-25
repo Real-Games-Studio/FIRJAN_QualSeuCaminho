@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameDataLoader : MonoBehaviour
 {
     public static GameDataLoader instance;
+    public event System.Action OnGameDataUpdated;
 
     [Tooltip("Relative filename under StreamingAssets (e.g. gamedata.json)")]
     public string fileName = "gamedata.json";
@@ -152,6 +153,7 @@ public class GameDataLoader : MonoBehaviour
         // We use 'casas' exclusively now. Any logic that previously read 'points' should be updated to use 'casas'.
 
         Debug.Log("Gamedata loaded. Questions: " + (loadedData?.questions?.Count ?? 0));
+        OnGameDataUpdated?.Invoke();
     }
 
     private void OnLanguageChanged_ReloadTranslations()
@@ -206,6 +208,7 @@ public class GameDataLoader : MonoBehaviour
                 loadedData = localized;
             }
             Debug.Log("Gamedata translations reloaded for language: " + lang);
+                OnGameDataUpdated?.Invoke();
         }
     }
 

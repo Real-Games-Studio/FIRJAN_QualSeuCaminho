@@ -32,4 +32,6 @@ public class GameConfig
     public string applicationName;
     public int maxInactiveTime;
     public string gamedataVersion;
+    public string serverIP;
+    public int serverPort;
 }

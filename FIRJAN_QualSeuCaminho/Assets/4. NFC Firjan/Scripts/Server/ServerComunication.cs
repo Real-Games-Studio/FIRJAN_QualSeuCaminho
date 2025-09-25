@@ -23,7 +23,81 @@ namespace _4._NFC_Firjan.Scripts.Server
 
 		private void Awake()
 		{
+			// initialize http client immediately
 			_client = new HttpClient();
+
+			// Try to read configuration from GameDataLoader. It may not be ready yet (order of Awake calls),
+			// so handle nulls safely and subscribe to updates if necessary.
+			if (GameDataLoader.instance != null && GameDataLoader.instance.loadedConfig != null)
+			{
+				Ip = GameDataLoader.instance.loadedConfig.serverIP;
+				Port = GameDataLoader.instance.loadedConfig.serverPort;
+			}
+			else if (GameDataLoader.instance != null)
+			{
+				// subscribe to be notified when the game data/config is ready
+				GameDataLoader.instance.OnGameDataUpdated += OnGameDataUpdated;
+				// in case the loader becomes available a bit later, also start a short waiter
+				StartCoroutine(WaitForConfig());
+			}
+			else
+			{
+				// If GameDataLoader.instance is null, start a coroutine that waits for it to appear
+				StartCoroutine(WaitForGameDataLoader());
+			}
+		}
+
+
+		private System.Collections.IEnumerator WaitForGameDataLoader()
+		{
+			while (GameDataLoader.instance == null)
+			{
+				yield return null;
+			}
+			// now instance exists; try to use it
+			if (GameDataLoader.instance.loadedConfig != null)
+			{
+				Ip = GameDataLoader.instance.loadedConfig.serverIP;
+				Port = GameDataLoader.instance.loadedConfig.serverPort;
+			}
+			else
+			{
+				GameDataLoader.instance.OnGameDataUpdated += OnGameDataUpdated;
+				StartCoroutine(WaitForConfig());
+			}
+		}
+
+		private System.Collections.IEnumerator WaitForConfig()
+		{
+			// wait a few frames for loadedConfig to be available
+			int maxFrames = 300; // ~5 seconds at 60fps
+			int frames = 0;
+			while ((GameDataLoader.instance == null || GameDataLoader.instance.loadedConfig == null) && frames++ < maxFrames)
+			{
+				yield return null;
+			}
+			if (GameDataLoader.instance != null && GameDataLoader.instance.loadedConfig != null)
+			{
+				Ip = GameDataLoader.instance.loadedConfig.serverIP;
+				Port = GameDataLoader.instance.loadedConfig.serverPort;
+				// unsubscribe if we had subscribed earlier
+				if (GameDataLoader.instance != null)
+					GameDataLoader.instance.OnGameDataUpdated -= OnGameDataUpdated;
+			}
+			else
+			{
+				Debug.LogWarning("ServerComunication: GameDataLoader.loadedConfig not available after waiting.");
+			}
+		}
+
+		private void OnGameDataUpdated()
+		{
+			if (GameDataLoader.instance != null && GameDataLoader.instance.loadedConfig != null)
+			{
+				Ip = GameDataLoader.instance.loadedConfig.serverIP;
+				Port = GameDataLoader.instance.loadedConfig.serverPort;
+				GameDataLoader.instance.OnGameDataUpdated -= OnGameDataUpdated;
+			}
 		}
 
 		private string GetFullEndGameUrl(string nfcId)
@@ -47,8 +121,8 @@ namespace _4._NFC_Firjan.Scripts.Server
 			var request = new HttpRequestMessage(HttpMethod.Post, url);
 			var content = new StringContent(gameInfo.ToString());
 			request.Content = content; 
-			Debug.Log($"Sending to {url}:{request.Content?.ReadAsStringAsync().Result}");
-			var response = _client.SendAsync(request).Result;
+			Debug.Log($"Sending to {url}");
+			var response = await _client.SendAsync(request);
 			return response.StatusCode;
 		}
 
@@ -62,11 +136,12 @@ namespace _4._NFC_Firjan.Scripts.Server
 			var url = GetFullNfcUrl(nfcId);
 			var request = new HttpRequestMessage(HttpMethod.Get, url);
 			Debug.Log($"Sending to {url}");
-			var response = _client.SendAsync(request).Result;
+			var response = await _client.SendAsync(request);
 			Debug.Log($"Response code is {response.StatusCode}");
 			if (response.StatusCode == HttpStatusCode.OK)
 			{
-				return JsonConvert.DeserializeObject<EndGameResponseModel>(await response.Content.ReadAsStringAsync());
+				var body = await response.Content.ReadAsStringAsync();
+				return JsonConvert.DeserializeObject<EndGameResponseModel>(body);
 			}
 			else
 			{
@@ -87,13 +162,14 @@ namespace _4._NFC_Firjan.Scripts.Server
 			var request = new HttpRequestMessage(HttpMethod.Post, url);
 			var content = new StringContent(endGameRequestModel.ToString());
 			request.Content = content;
-			
-			Debug.Log($"Sending to {url}:{request.Content?.ReadAsStringAsync().Result}");
-			var response = _client.SendAsync(request).Result;
+
+			Debug.Log($"Sending to {url}");
+			var response = await _client.SendAsync(request);
 			Debug.Log($"Response code is {response.StatusCode}");
 			if (response.StatusCode == HttpStatusCode.OK)
 			{
-				return Newtonsoft.Json.JsonConvert.DeserializeObject<EndGameResponseModel>(response.Content.ReadAsStringAsync().Result);
+				var body = await response.Content.ReadAsStringAsync();
+				return Newtonsoft.Json.JsonConvert.DeserializeObject<EndGameResponseModel>(body);
 			}
 			else
 			{
