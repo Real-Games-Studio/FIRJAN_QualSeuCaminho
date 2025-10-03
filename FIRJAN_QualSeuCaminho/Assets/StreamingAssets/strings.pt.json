@@ -14,7 +14,15 @@
     { "key": "gameover.p1", "value": "Tomada de Decisão" },
     { "key": "gameover.p2", "value": "Pensamento Crítico" },
     { "key": "gameover.p3", "value": "Solução de Problemas" },
+
+    { "key": "end.message", "value": "Obrigado! Seus dados foram gravados no seu perfil!" },
 	
+    { "key": "pop.exit", "value": "Quer mesmo sair?" },
+    { "key": "pop.yes", "value": "Sim" },
+    { "key": "pop.no", "value": "Não" },
+
+    { "key": "ui.lives", "value": "Vidas" },
+    { "key": "ui.score", "value": "Pontuação" },
 	
     { "key": "ui.timeout", "value": "Tempo esgotado" },
     { "key": "ui.confirm", "value": "Confirmar" },

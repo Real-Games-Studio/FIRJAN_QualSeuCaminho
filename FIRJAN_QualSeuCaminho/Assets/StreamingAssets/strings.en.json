@@ -17,7 +17,12 @@
 
     { "key": "end.message", "value": "Thanks! Your data has been saved to your profile!" },
 
-	
+	    { "key": "pop.exit", "value": "Do you really want to exit?" },
+    { "key": "pop.yes", "value": "Yes" },
+    { "key": "pop.no", "value": "No" },
+
+    { "key": "ui.lives", "value": "Lives" },
+    { "key": "ui.score", "value": "Score" },
     { "key": "ui.timeout", "value": "Timeout" },
     { "key": "ui.confirm", "value": "Confirm" },
     { "key": "ui.cancel", "value": "Cancel" },

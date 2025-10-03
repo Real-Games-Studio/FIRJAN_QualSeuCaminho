@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using _4._NFC_Firjan.Scripts.NFC;
 using _4._NFC_Firjan.Scripts.Server;
 using System.Net;
+using System.Threading.Tasks;
 
 public class CanvasScreenGameOver : CanvasScreen
 {
@@ -160,6 +161,17 @@ public class CanvasScreenGameOver : CanvasScreen
                 Debug.Log("NFC data sent successfully.");
                 if (nfcConnectionFeedback != null)
                     nfcConnectionFeedback.color = Color.green;
+
+                // show success feedback briefly, then advance to the next screen
+                try
+                {
+                    await Task.Delay(700);
+                    CallNextScreen();
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogWarning("Failed to advance to next screen: " + ex.Message);
+                }
             }
             else
             {

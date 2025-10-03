@@ -1,7 +1,7 @@
 {
   "applicationName": "MyApp",
-  "maxInactiveTime": 300,
+  "maxInactiveTime": 60,
   "gamedataVersion": "1.0",
-  "serverIP": "127.0.0.1",
+  "serverIP": ";192.168.0.185",
   "serverPort": 8080
 }

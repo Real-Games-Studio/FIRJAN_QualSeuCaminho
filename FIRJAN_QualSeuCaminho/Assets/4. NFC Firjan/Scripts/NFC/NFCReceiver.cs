@@ -29,11 +29,19 @@ namespace _4._NFC_Firjan.Scripts.NFC
 
 		private void Awake()
 		{
-			_cardReader.CardConnected += OnCardConnectedHandler;
-			_cardReader.CardDisconnected += OnCardDisconnectedHandler;
-			_cardReader.CardreaderConnected += OnCardReaderConnectedHandler;
-			_cardReader.CardreaderDisconnected += OnCardReaderDisconnectedHandler;
-			_cardReader.StartWatch();
+			try
+			{
+				_cardReader.CardConnected += OnCardConnectedHandler;
+				_cardReader.CardDisconnected += OnCardDisconnectedHandler;
+				_cardReader.CardreaderConnected += OnCardReaderConnectedHandler;
+				_cardReader.CardreaderDisconnected += OnCardReaderDisconnectedHandler;
+				_cardReader.StartWatch();
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Erro ao iniciar o Cardreader: " + e.Message);
+			}
+
 		}
 
 		private void OnCardReaderDisconnectedHandler(object sender, CardreaderEventArgs e)

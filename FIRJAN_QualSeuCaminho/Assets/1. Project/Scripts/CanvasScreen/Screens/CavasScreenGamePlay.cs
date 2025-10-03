@@ -56,12 +56,9 @@ public class CavasScreenGamePlay : CanvasScreen
 
     public override void TurnOn()
     {
-        // sempre que abrirmos essta tela as configuracoes de jogo devem ser configuradas para o inicio.
-        // jogador voltar para a casa 0.
-        // carregar a primeira pergunta
-        currentCasaIndex = 0;
-        currentQuestionIndex = 0;
-        MovePlayerToCasa(currentCasaIndex);
+        // ao abrir a tela de jogo devemos atualizar o gamestate
+        // garantir que qualquer estado/coroutine anterior seja cancelado e o jogo reseteado
+        ResetGameplay();
         base.TurnOn();
         // subscribe to gamedata updates and localization
         if (GameDataLoader.instance != null)
@@ -82,6 +79,73 @@ public class CavasScreenGamePlay : CanvasScreen
             answerBButton.onClick.AddListener(onAnswerBCallback);
         }
         StartQuestion(currentQuestionIndex);
+    }
+
+    /// <summary>
+    /// Reseta o estado da gameplay quando a tela for aberta.
+    /// Deve cancelar coroutines ativas, resetar timers, indices, UI e reabilitar botões.
+    /// Isso permite reabrir a tela sem dar reload na cena e sem duplicar listeners/coroutines.
+    /// </summary>
+    private void ResetGameplay()
+    {
+        // stop all coroutines started by this MonoBehaviour to avoid multiple concurrent flows
+        try
+        {
+            StopAllCoroutines();
+        }
+        catch { }
+
+        // reset indices and timers
+        currentState = GameState.QuestionDisplayed;
+        currentCasaIndex = 0;
+        currentQuestionIndex = 0;
+        timerRemaining = questionTime;
+        questionActive = false;
+
+        // reset UI panels safely
+        if (questionUI != null)
+        {
+            if (questionUI.questionPanel != null)
+                questionUI.questionPanel.SetActive(true);
+            if (questionUI.timerText != null)
+                questionUI.timerText.text = Mathf.CeilToInt(questionTime).ToString();
+            if (questionUI.questionTitle != null)
+                questionUI.questionTitle.text = string.Empty;
+            if (questionUI.questionDescription != null)
+                questionUI.questionDescription.text = string.Empty;
+            if (questionUI.answerA != null)
+                questionUI.answerA.text = string.Empty;
+            if (questionUI.answerB != null)
+                questionUI.answerB.text = string.Empty;
+        }
+        if (feedbackUI != null && feedbackUI.feedbackPanel != null)
+        {
+            feedbackUI.feedbackPanel.SetActive(false);
+            if (feedbackUI.feedbackTitle != null)
+                feedbackUI.feedbackTitle.text = string.Empty;
+        }
+
+        // reset player position if possible
+        if (casas != null && casas.Length > 0 && player != null)
+        {
+            MovePlayerToCasa(currentCasaIndex);
+        }
+
+        // re-enable buttons and ensure listeners won't be duplicated (listeners are re-attached in TurnOn)
+        if (answerAButton != null)
+        {
+            answerAButton.interactable = true;
+            if (onAnswerACallback != null)
+                answerAButton.onClick.RemoveListener(onAnswerACallback);
+        }
+        if (answerBButton != null)
+        {
+            answerBButton.interactable = true;
+            if (onAnswerBCallback != null)
+                answerBButton.onClick.RemoveListener(onAnswerBCallback);
+        }
+
+        // reset session points if desired - NOTE: keep behavior as-is. If resetting score is needed, call SessionPlacar.Reset() here.
     }
 
     public override void OnDisable()
