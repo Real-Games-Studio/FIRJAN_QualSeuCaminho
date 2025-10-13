@@ -883,7 +883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -174.00002, y: 271.00003}
+  m_AnchoredPosition: {x: -124.01001, y: 286}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131569239
@@ -2868,8 +2868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Approve full automation, cutting costs and dismissing part of the team
-    with a social plan.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6281,10 +6280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The multinational is experiencing a drop in productivity and management
-    proposes automating some operational functions. This implies staff reductions
-    and an immediate efficiency gain. HR proposes an alternative with reskilling,
-    which has a higher short-term cost. What do you suggest?
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6692,7 +6688,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DECISION 1: Automation crisis and cost cutting'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8184,10 +8180,6 @@ MonoBehaviour:
     editor_turnOn: 0
     editor_turnOff: 0
   localizationTexts:
-  - key: cta.title
-    textField: {fileID: 1515792270}
-  - key: cta.description
-    textField: {fileID: 122664392}
   - key: cta.button
     textField: {fileID: 778740412}
   - key: pop.exit
@@ -8196,6 +8188,10 @@ MonoBehaviour:
     textField: {fileID: 175177001}
   - key: pop.no
     textField: {fileID: 710217534}
+  - key: cta.title1
+    textField: {fileID: 1515792270}
+  - key: cta.title2
+    textField: {fileID: 1996907526}
   toggle_ptbr: {fileID: 1342170566}
   toggle_english: {fileID: 887404882}
 --- !u!225 &1745613529
@@ -8267,8 +8263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Approve partial automation with a reskilling and redeployment plan for
-    affected employees.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
