@@ -12,6 +12,7 @@ public class Question
 {
     public string id;
     public string title;
+    public string title2;
     public string description;
     public List<Answer> answers;
 }
@@ -34,4 +35,5 @@ public class GameConfig
     public string gamedataVersion;
     public string serverIP;
     public int serverPort;
+    public float questionTime = 45f; // Tempo das perguntas em segundos
 }

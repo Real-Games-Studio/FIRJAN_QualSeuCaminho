@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SegmentedBar : MonoBehaviour
 {
-    [Header("Configurações Gerais")]
+    [Header("Configuraï¿½ï¿½es Gerais")]
     public GameObject prefabSegmento;
     public int totalSegmentos = 20;
     [Range(0, 100)] public int valorAtual = 0;
@@ -15,11 +15,11 @@ public class SegmentedBar : MonoBehaviour
     public float popEscala = 1.2f;
     public float popDuracao = 0.2f;
 
-    [Header("Integração com Placar")]
+    [Header("Integraï¿½ï¿½o com Placar")]
     [Tooltip("Arraste aqui o script SessionPlacar (opcional)")]
     public SessionPlacar sessionPlacar;
 
-    [Tooltip("Campo do SessionPlacar que será lido")]
+    [Tooltip("Campo do SessionPlacar que serï¿½ lido")]
     public TipoValorPlacar tipoValor; // enum abaixo
 
     private List<GameObject> segmentos = new List<GameObject>();
@@ -30,7 +30,7 @@ public class SegmentedBar : MonoBehaviour
         TomadaDeDecisao,
         PensamentoCritico,
         SolucaoDeProblemas
-        // etc — adicione o que quiser
+        // etc ï¿½ adicione o que quiser
     }
 
     void Start()
@@ -50,7 +50,7 @@ public class SegmentedBar : MonoBehaviour
         if (sessionPlacar == null) return;
 
         int valor = 0;
-        int maximo = 1; // evita divisão por zero
+        int maximo = 1; // evita divisï¿½o por zero
 
         switch (tipoValor)
         {

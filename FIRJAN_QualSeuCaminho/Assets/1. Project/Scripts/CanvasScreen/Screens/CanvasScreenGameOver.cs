@@ -12,6 +12,11 @@ public class CanvasScreenGameOver : CanvasScreen
     [SerializeField] private TMP_Text criticalThinkingText;
     [SerializeField] private TMP_Text problemSolvingText;
 
+    [Header("Barras Segmentadas")]
+    [SerializeField] private SegmentedBarNew decisionMakingBar;
+    [SerializeField] private SegmentedBarNew criticalThinkingBar;
+    [SerializeField] private SegmentedBarNew problemSolvingBar;
+
     [SerializeField] private Image nfcConnectionFeedback; // cor amarela para nenhum nfc detectado.
                                                           // cor verde para nfc detectado e dados enviados
 
@@ -55,7 +60,7 @@ public class CanvasScreenGameOver : CanvasScreen
                 return (T)method2.MakeGenericMethod(typeof(T)).Invoke(null, null);
             }
         }
-        catch { }
+        catch { } //?
 
         // fallback to the legacy API (may be marked obsolete on newer Unity versions)
 #pragma warning disable 0618
@@ -105,16 +110,67 @@ public class CanvasScreenGameOver : CanvasScreen
 
         // set feedback to yellow (no card)
         if (nfcConnectionFeedback != null)
-            nfcConnectionFeedback.color = Color.yellow;
+            // nfcConnectionFeedback.color = Color.yellow;
+
+            // Atualizar as barras segmentadas quando a tela for ativada
+            UpdateSegmentedBars();
 
         base.TurnOn();
     }
 
     private void UpdateUI()
     {
+        // Atualizar textos
         decisionMakingText.text = SessionPlacar.Instance.TomadaDeDecisao.ToString();
         criticalThinkingText.text = SessionPlacar.Instance.PensamentoCritico.ToString();
         problemSolvingText.text = SessionPlacar.Instance.SolucaoDeProblemas.ToString();
+
+        // Atualizar barras segmentadas
+        UpdateSegmentedBars();
+    }
+
+    private void UpdateSegmentedBars()
+    {
+        if (SessionPlacar.Instance == null) return;
+
+        // Tomada de Decisão (max: 27 pontos)
+        if (decisionMakingBar != null)
+        {
+            // Converter pontuação atual para segmentos (assumindo 16 segmentos por padrão)
+            int segments = CalculateSegments(SessionPlacar.Instance.TomadaDeDecisao, SessionPlacar.Instance.TomadaDeDecisaoMax, 16);
+            StartCoroutine(decisionMakingBar.AnimateBar(segments));
+        }
+
+        // Pensamento Crítico (max: 27 pontos)
+        if (criticalThinkingBar != null)
+        {
+            int segments = CalculateSegments(SessionPlacar.Instance.PensamentoCritico, SessionPlacar.Instance.PensamentoCriticoMax, 16);
+            StartCoroutine(criticalThinkingBar.AnimateBar(segments));
+        }
+
+        // Solução de Problemas (max: 18 pontos)
+        if (problemSolvingBar != null)
+        {
+            int segments = CalculateSegments(SessionPlacar.Instance.SolucaoDeProblemas, SessionPlacar.Instance.SolucaoDeProblemasMax, 16);
+            StartCoroutine(problemSolvingBar.AnimateBar(segments));
+        }
+    }
+
+    private int CalculateSegments(int currentPoints, int maxPoints, int totalSegments)
+    {
+        if (maxPoints <= 0) return 0;
+
+        // Calcula proporcionalmente quantos segmentos devem estar preenchidos
+        float percentage = (float)currentPoints / maxPoints;
+        return Mathf.RoundToInt(percentage * totalSegments);
+    }
+
+    /// <summary>
+    /// Método público para atualizar as barras segmentadas externamente
+    /// </summary>
+    public void RefreshSegmentedBars()
+    {
+        UpdateSegmentedBars();
     }
 
     // NFC events

@@ -100,7 +100,12 @@ public class CavasScreenGamePlay : CanvasScreen
         currentState = GameState.QuestionDisplayed;
         currentCasaIndex = 0;
         currentQuestionIndex = 0;
-        timerRemaining = questionTime;
+        
+        // Inicializar timers com valor configurado do JSON
+        float configuredTime = GetQuestionTimeFromConfig();
+        timerRemaining = configuredTime;
+        currentTime = configuredTime;
+        initialGameTime = configuredTime;
         questionActive = false;
 
         // reset UI panels safely
@@ -109,7 +114,7 @@ public class CavasScreenGamePlay : CanvasScreen
             if (questionUI.questionPanel != null)
                 questionUI.questionPanel.SetActive(true);
             if (questionUI.timerText != null)
-                questionUI.timerText.text = Mathf.CeilToInt(questionTime).ToString();
+                questionUI.timerText.text = Mathf.CeilToInt(configuredTime).ToString();
             if (questionUI.questionTitle != null)
                 questionUI.questionTitle.text = string.Empty;
             if (questionUI.questionSubTitle != null)
@@ -236,8 +241,11 @@ public class CavasScreenGamePlay : CanvasScreen
         if (questionUI.answerA != null) questionUI.answerA.text = q.answers[currentDisplayAIndex].text;
         if (questionUI.answerB != null) questionUI.answerB.text = q.answers[currentDisplayBIndex].text;
 
-        // timer
-        timerRemaining = questionTime;
+        // timer - usar tempo do GameConfig se disponível
+        float configuredTime = GetQuestionTimeFromConfig();
+        timerRemaining = configuredTime;
+        currentTime = configuredTime;
+        initialGameTime = configuredTime;
         questionActive = true;
     }
 
@@ -249,10 +257,22 @@ public class CavasScreenGamePlay : CanvasScreen
             case GameState.QuestionDisplayed:
                 if (!questionActive) return;
                 feedbackUI.feedbackPanel.SetActive(false);
+                
+                // Atualizar ambos os timers (legacy e novo sistema)
                 timerRemaining -= Time.deltaTime;
-                if (questionUI.timerText != null) questionUI.timerText.text = Mathf.CeilToInt(timerRemaining).ToString();
+                currentTime -= Time.deltaTime;
+                
+                // Usar novo método de UI que atualiza tanto texto quanto fill
+                UpdateTimerUI();
+                
+                // Manter compatibilidade com timer antigo se questionUI.timerText existir e timerText for diferente
+                if (questionUI.timerText != null && questionUI.timerText != timerText)
+                {
+                    questionUI.timerText.text = Mathf.CeilToInt(timerRemaining).ToString();
+                }
+                
                 // wire up answer buttons safely
-                if (timerRemaining <= 0f)
+                if (timerRemaining <= 0f || currentTime <= 0f)
                 {
                     questionActive = false;
                     TransitionToShowingFeedbackTimeout();
@@ -446,4 +466,51 @@ public class CavasScreenGamePlay : CanvasScreen
         int idxTimeout = Mathf.Min(2, Mathf.Max(0, answersCount - 1));
         TransitionToAnswerSelected(q, idxTimeout);
     }
+
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Image timerFillImage;
+    [SerializeField] private float initialGameTime = 45f;
+    private float currentTime;
+
+    private void UpdateTimerUI()
+    {
+        UpdateTimerFill();
+
+        if (timerText != null)
+        {
+            int secondsRemaining = Mathf.CeilToInt(currentTime);
+            if (secondsRemaining < 0) secondsRemaining = 0;
+            timerText.text = $"{secondsRemaining}";
+        }
+    }
+
+    /// <summary>
+    /// Atualiza o fill da imagem do timer
+    /// </summary>
+    private void UpdateTimerFill()
+    {
+        if (timerFillImage == null) return;
+
+        if (initialGameTime <= 0f)
+        {
+            timerFillImage.fillAmount = 0f;
+            return;
+        }
+
+        float normalizedTime = Mathf.Clamp01(currentTime / initialGameTime);
+        timerFillImage.fillAmount = normalizedTime;
+    }
+    
+    /// <summary>
+    /// Obter o tempo configurado para perguntas do GameConfig ou usar padrão
+    /// </summary>
+    private float GetQuestionTimeFromConfig()
+    {
+        if (GameDataLoader.instance?.loadedConfig != null)
+        {
+            return GameDataLoader.instance.loadedConfig.questionTime;
+        }
+        return questionTime; // fallback para valor padrão
+    }
+
 }
