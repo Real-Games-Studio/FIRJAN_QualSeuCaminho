@@ -100,7 +100,7 @@ public class CavasScreenGamePlay : CanvasScreen
         currentState = GameState.QuestionDisplayed;
         currentCasaIndex = 0;
         currentQuestionIndex = 0;
-        
+
         // Inicializar timers com valor configurado do JSON
         float configuredTime = GetQuestionTimeFromConfig();
         timerRemaining = configuredTime;
@@ -257,20 +257,20 @@ public class CavasScreenGamePlay : CanvasScreen
             case GameState.QuestionDisplayed:
                 if (!questionActive) return;
                 feedbackUI.feedbackPanel.SetActive(false);
-                
+
                 // Atualizar ambos os timers (legacy e novo sistema)
                 timerRemaining -= Time.deltaTime;
                 currentTime -= Time.deltaTime;
-                
+
                 // Usar novo método de UI que atualiza tanto texto quanto fill
                 UpdateTimerUI();
-                
+
                 // Manter compatibilidade com timer antigo se questionUI.timerText existir e timerText for diferente
                 if (questionUI.timerText != null && questionUI.timerText != timerText)
                 {
                     questionUI.timerText.text = Mathf.CeilToInt(timerRemaining).ToString();
                 }
-                
+
                 // wire up answer buttons safely
                 if (timerRemaining <= 0f || currentTime <= 0f)
                 {
@@ -500,7 +500,7 @@ public class CavasScreenGamePlay : CanvasScreen
         float normalizedTime = Mathf.Clamp01(currentTime / initialGameTime);
         timerFillImage.fillAmount = normalizedTime;
     }
-    
+
     /// <summary>
     /// Obter o tempo configurado para perguntas do GameConfig ou usar padrão
     /// </summary>
