@@ -1,167 +1,168 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteAlways]
 public class SegmentedBar : MonoBehaviour
 {
     [Header("Configurações Gerais")]
-    [Tooltip("Prefab do segmento (ex: quadrado, coração, etc.)")]
     public GameObject prefabSegmento;
-
-    [Tooltip("Número total de segmentos que compõem a barra.")]
-    [Min(1)]
-    public int totalSegmentos = 10;
-
-    [Tooltip("Valor atual (quantos segmentos ativos).")]
-    [Range(0, 100)]
-    public int valorAtual = 5;
-
-    [Tooltip("Espaçamento entre cada segmento no eixo X.")]
+    public int totalSegmentos = 20;
+    [Range(0, 100)] public int valorAtual = 0;
     public float offsetX = 30f;
-
-    [Tooltip("Direção positiva (true = direita, false = esquerda).")]
     public bool esquerdaParaDireita = true;
+
+    [Header("Efeito de Pop")]
+    public float popEscala = 1.2f;
+    public float popDuracao = 0.2f;
+
+    [Header("Integração com Placar")]
+    [Tooltip("Arraste aqui o script SessionPlacar (opcional)")]
+    public SessionPlacar sessionPlacar;
+
+    [Tooltip("Campo do SessionPlacar que será lido")]
+    public TipoValorPlacar tipoValor; // enum abaixo
 
     private List<GameObject> segmentos = new List<GameObject>();
     private int valorAnterior = -1;
-    private int totalAnterior = -1;
-    private GameObject prefabAnterior;
+
+    public enum TipoValorPlacar
+    {
+        TomadaDeDecisao,
+        PensamentoCritico,
+        SolucaoDeProblemas
+        // etc — adicione o que quiser
+    }
 
     void Start()
     {
-        CriarOuAtualizarSegmentos();
+        CriarSegmentos();
         AtualizarBarra();
     }
 
-    /// <summary>
-    /// Cria/atualiza os segmentos conforme necessário:
-    /// - se o prefab mudou -> recria tudo
-    /// - se total aumentou -> instancia novos
-    /// - se total diminuiu -> destrói extras
-    /// Reposiciona todos os segmentos
-    /// </summary>
-    public void CriarOuAtualizarSegmentos()
+    void OnEnable()
     {
-        if (prefabSegmento == null || totalSegmentos <= 0)
-            return;
+        // Atualiza uma vez quando o objeto habilitar
+        AtualizarBarra();
+    }
 
-        // Caso o prefab tenha mudado, recria tudo
-        if (prefabSegmento != prefabAnterior)
+    public void AtualizarValorDoPlacar()
+    {
+        if (sessionPlacar == null) return;
+
+        int valor = 0;
+        int maximo = 1; // evita divisão por zero
+
+        switch (tipoValor)
         {
-            // destroy all children
-            foreach (Transform child in transform)
-            {
-                if (Application.isPlaying)
-                    Destroy(child.gameObject);
-                else
-                    DestroyImmediate(child.gameObject);
-            }
-            segmentos.Clear();
+            case TipoValorPlacar.TomadaDeDecisao:
+                valor = sessionPlacar.TomadaDeDecisao;
+                maximo = sessionPlacar.TomadaDeDecisaoMax;
+                break;
 
-            // instantiate new set
-            for (int i = 0; i < totalSegmentos; i++)
-            {
-                GameObject novoSegmento = Instantiate(prefabSegmento, transform);
-                novoSegmento.name = $"Segmento_{i + 1}";
-                segmentos.Add(novoSegmento);
-            }
+            case TipoValorPlacar.PensamentoCritico:
+                valor = sessionPlacar.PensamentoCritico;
+                maximo = sessionPlacar.PensamentoCriticoMax;
+                break;
 
-            prefabAnterior = prefabSegmento;
-            totalAnterior = totalSegmentos;
-            ReposicionarSegmentos();
-            return;
+            case TipoValorPlacar.SolucaoDeProblemas:
+                valor = sessionPlacar.SolucaoDeProblemas;
+                maximo = sessionPlacar.SolucaoDeProblemasMax;
+                break;
         }
 
-        // Se total mudou em relação ao que já instanciamos
-        if (totalSegmentos != totalAnterior)
-        {
-            // Se aumentou: instancia os adicionais
-            if (totalSegmentos > segmentos.Count)
-            {
-                int inicio = segmentos.Count;
-                for (int i = inicio; i < totalSegmentos; i++)
-                {
-                    GameObject novoSegmento = Instantiate(prefabSegmento, transform);
-                    novoSegmento.name = $"Segmento_{i + 1}";
-                    segmentos.Add(novoSegmento);
-                }
-            }
-            // Se diminuiu: destrói os excedentes
-            else if (totalSegmentos < segmentos.Count)
-            {
-                for (int i = segmentos.Count - 1; i >= totalSegmentos; i--)
-                {
-                    var go = segmentos[i];
-                    segmentos.RemoveAt(i);
-                    if (Application.isPlaying)
-                        Destroy(go);
-                    else
-                        DestroyImmediate(go);
-                }
-            }
+        float proporcao = Mathf.Clamp01(valor / (float)maximo);
+        int novoValor = Mathf.RoundToInt(proporcao * totalSegmentos);
 
-            totalAnterior = totalSegmentos;
-            ReposicionarSegmentos();
-        }
-        else
+        SetValor(novoValor);
+    }
+
+    public void CriarSegmentos()
+    {
+        foreach (Transform child in transform)
         {
-            // mesmo total — apenas garante reposicionamento caso offset/direção tenham mudado
-            ReposicionarSegmentos();
+            if (Application.isPlaying)
+                Destroy(child.gameObject);
+            else
+                DestroyImmediate(child.gameObject);
+        }
+
+        segmentos.Clear();
+
+        for (int i = 0; i < totalSegmentos; i++)
+        {
+            GameObject novo = Instantiate(prefabSegmento, transform);
+            novo.name = $"Segmento_{i + 1}";
+            float direcao = esquerdaParaDireita ? 1f : -1f;
+            novo.transform.localPosition = new Vector3(i * offsetX * direcao, 0f, 0f);
+            novo.transform.localScale = Vector3.one;
+            segmentos.Add(novo);
         }
     }
 
-    /// <summary>
-    /// Reposiciona os segmentos com base em offsetX e direção.
-    /// </summary>
-    private void ReposicionarSegmentos()
-    {
-        float direcao = esquerdaParaDireita ? 1f : -1f;
-        for (int i = 0; i < segmentos.Count; i++)
-        {
-            if (segmentos[i] == null) continue;
-            segmentos[i].transform.localPosition = new Vector3(i * offsetX * direcao, 0f, 0f);
-            segmentos[i].name = $"Segmento_{i + 1}";
-        }
-    }
-
-    /// <summary>
-    /// Atualiza visibilidade/estado dos segmentos conforme valorAtual.
-    /// Não recria nada aqui — só ativa/desativa para performance.
-    /// </summary>
     public void AtualizarBarra()
     {
-        int ativoAte = Mathf.Clamp(valorAtual, 0, totalSegmentos);
+        if (valorAtual == valorAnterior) return;
 
-        // evita work inútil
-        if (segmentos == null) segmentos = new List<GameObject>();
-        if (ativoAte == valorAnterior && segmentos.Count == totalAnterior) return;
-
-        valorAnterior = ativoAte;
+        bool aumento = valorAtual > valorAnterior;
+        valorAnterior = valorAtual;
 
         for (int i = 0; i < segmentos.Count; i++)
         {
-            var go = segmentos[i];
-            if (go == null) continue;
-            bool deveAtivar = i < ativoAte;
-            if (go.activeSelf != deveAtivar)
-                go.SetActive(deveAtivar);
+            bool deveAtivar = i < valorAtual;
+
+            if (deveAtivar && !segmentos[i].activeSelf && aumento)
+            {
+                segmentos[i].SetActive(true);
+                StartCoroutine(AnimarPop(segmentos[i].transform));
+            }
+            else
+            {
+                segmentos[i].SetActive(deveAtivar);
+            }
         }
     }
 
-    /// <summary>
-    /// Ajusta o valor atual e atualiza a barra.
-    /// </summary>
     public void SetValor(int novoValor)
     {
         valorAtual = Mathf.Clamp(novoValor, 0, totalSegmentos);
         AtualizarBarra();
     }
 
+    private IEnumerator AnimarPop(Transform t)
+    {
+        Vector3 escalaInicial = Vector3.one;
+        Vector3 escalaMaxima = Vector3.one * popEscala;
+
+        float metadeTempo = popDuracao / 2f;
+        float tempo = 0f;
+
+        while (tempo < metadeTempo)
+        {
+            tempo += Time.deltaTime;
+            float tLerp = tempo / metadeTempo;
+            t.localScale = Vector3.Lerp(escalaInicial, escalaMaxima, tLerp);
+            yield return null;
+        }
+
+        tempo = 0f;
+        while (tempo < metadeTempo)
+        {
+            tempo += Time.deltaTime;
+            float tLerp = tempo / metadeTempo;
+            t.localScale = Vector3.Lerp(escalaMaxima, escalaInicial, tLerp);
+            yield return null;
+        }
+
+        t.localScale = Vector3.one;
+    }
+
 #if UNITY_EDITOR
     void OnValidate()
     {
-        // Em editor: tenta manter as coisas consistentes sem precisar entrar em play
-        CriarOuAtualizarSegmentos();
+        if (prefabSegmento == null || totalSegmentos <= 0)
+            return;
+
+        CriarSegmentos();
         AtualizarBarra();
     }
 #endif

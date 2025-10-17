@@ -23,6 +23,7 @@ public class CavasScreenGamePlay : CanvasScreen
         public TMP_Text timerText; //toda pergunta, tem 45 segundos para ser respondida
 
         public TMP_Text questionTitle;
+        public TMP_Text questionSubTitle;
         public TMP_Text questionDescription;
 
         public TMP_Text answerA;
@@ -111,6 +112,8 @@ public class CavasScreenGamePlay : CanvasScreen
                 questionUI.timerText.text = Mathf.CeilToInt(questionTime).ToString();
             if (questionUI.questionTitle != null)
                 questionUI.questionTitle.text = string.Empty;
+            if (questionUI.questionSubTitle != null)
+                questionUI.questionSubTitle.text = string.Empty;
             if (questionUI.questionDescription != null)
                 questionUI.questionDescription.text = string.Empty;
             if (questionUI.answerA != null)
@@ -228,6 +231,7 @@ public class CavasScreenGamePlay : CanvasScreen
 
         // Set UI texts (guarding for nulls)
         if (questionUI.questionTitle != null) questionUI.questionTitle.text = q.title;
+        if (questionUI.questionSubTitle != null) questionUI.questionSubTitle.text = q.title2;
         if (questionUI.questionDescription != null) questionUI.questionDescription.text = q.description;
         if (questionUI.answerA != null) questionUI.answerA.text = q.answers[currentDisplayAIndex].text;
         if (questionUI.answerB != null) questionUI.answerB.text = q.answers[currentDisplayBIndex].text;

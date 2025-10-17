@@ -9,8 +9,11 @@ public class SessionPlacar : MonoBehaviour
     public int pontos;
 
     public int TomadaDeDecisao;
+    public int TomadaDeDecisaoMax = 27;
     public int PensamentoCritico;
+    public int PensamentoCriticoMax = 27;
     public int SolucaoDeProblemas;
+    public int SolucaoDeProblemasMax = 18;
 
 
 

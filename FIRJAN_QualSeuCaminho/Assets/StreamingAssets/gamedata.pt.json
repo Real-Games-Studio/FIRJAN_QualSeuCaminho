@@ -2,7 +2,8 @@
   "questions": [
     {
       "id": "Q1",
-      "title": "DECISÃO 1: Crise de automação e corte de custos",
+      "title": "DECISÃO 1",
+      "title2": "Crise de automação e corte de custos",
       "description": "A multinacional está com a produtividade em queda e a diretoria propõe automatizar parte das funções operacionais. Isso significa cortes de pessoal e ganho imediato de eficiência. O RH propõe uma alternativa com requalificação, mas com custo maior a curto prazo. O que você sugere?",
       "answers": [
         { "text": "Aprovar a automação parcial com plano de requalificação e recolocação dos funcionários afetados.", "feedback": "Você enxergou o todo. Eficiência sim, mas sem esquecer das pessoas. A fábrica segue em frente com resiliência.", "casas": 3 },
@@ -12,7 +13,8 @@
     },
     {
       "id": "Q2",
-      "title": "DECISÃO 2: Sustentabilidade energética",
+      "title": "DECISÃO 2",
+      "title2": "Sustentabilidade energética",
       "description": "A conta de energia da fábrica aumentou 30%. O conselho sugere instalar painéis solares, que tem um custo inicial maior, porém reduz os gastos a longo prazo. Já o financeiro defende negociar descontos com a fornecedora, com impacto imediato. Qual a sua solução?",
       "answers": [
         { "text": "Instalar energia solar, investindo em economia sustentável.", "feedback": "Você escolheu visão de futuro. A fábrica reduziu custos, ganhou autonomia e reforçou sua imagem sustentável, mas precisou fazer um alto investimento inicial não previsto.", "casas": 3 },
@@ -22,17 +24,31 @@
     },
     {
       "id": "Q3",
-      "title": "DECISÃO 3: Proposta de expansão com parceiro externo",
+      "title": "DECISÃO 3",
+      "title2": "Proposta de expansão com parceiro externo",
       "description": "Uma startup oferece à multinacional uma tecnologia que pode triplicar a produção com baixo impacto ambiental. Mas exige acesso privilegiado a dados e exclusividade no contrato. Parte do conselho teme riscos de segurança e perda de autonomia. Qual a sua decisão?",
       "answers": [
-        { "text": "Aprovar a automação parcial com plano de requalificação e recolocação dos funcionários afetados.", "feedback": "Você enxergou o todo. Eficiência sim, mas sem esquecer das pessoas. A fábrica segue em frente com resiliência.", "casas": 3 },
-        { "text": "Aprovar a automação integral, cortando custos e dispensando parte da equipe com plano social.", "feedback": "O ganho imediato foi real mas o clima organizacional foi abalado.", "casas": 2 },
-        { "text": "Não tomar decisão a tempo.", "feedback": "A diretoria agiu sozinha. Você foi deixado de fora e perdeu influência no processo.", "casas": 1 }
+        {
+          "text": "Aprovar a automação parcial com plano de requalificação e recolocação dos funcionários afetados.",
+          "feedback": "Você enxergou o todo. Eficiência sim, mas sem esquecer das pessoas. A fábrica segue em frente com resiliência.",
+          "casas": 3
+        },
+        {
+          "text": "Aprovar a automação integral, cortando custos e dispensando parte da equipe com plano social.",
+          "feedback": "O ganho imediato foi real mas o clima organizacional foi abalado.",
+          "casas": 2
+        },
+        {
+          "text": "Não tomar decisão a tempo.",
+          "feedback": "A diretoria agiu sozinha. Você foi deixado de fora e perdeu influência no processo.",
+          "casas": 1
+        }
       ]
     },
     {
       "id": "Q4",
-      "title": "DECISÃO 4: Matéria-prima com defeito",
+      "title": "DECISÃO 4",
+      "title2": "Matéria-prima com defeito",
       "description": "Um lote importante de matéria-prima chegou com defeito, atrasando a produção de vários setores. Parte da equipe propõe acionar imediatamente o fornecedor e exigir reposição, enquanto outro grupo sugere reorganizar o fluxo interno para minimizar perdas antes de agir externamente. Qual caminho seguir?",
       "answers": [
         { "text": "Reorganizar o fluxo interno para manter parte da produção ativa enquanto negocia com o fornecedor.", "feedback": "Você ganhou tempo, reduziu perdas e mostrou capacidade de adaptação.", "casas": 3 },
@@ -42,7 +58,8 @@
     },
     {
       "id": "Q2",
-      "title": "DECISÃO 5: Crise climática local e responsabilidade ambiental",
+      "title": "DECISÃO 5",
+      "title2": "Crise climática local e responsabilidade ambiental",
       "description": "Fortes chuvas atingiram a região e parte do entorno da fábrica foi alagada, mas ela não foi diretamente afetada. A prefeitura pede colaboração voluntária com o mutirão de limpeza e o jurídico alerta para risco de admitir culpa. Qual a melhor ação para esta situação?",
       "answers": [
         { "text": "Aceitar o pedido e mobilizar voluntários internos para o mutirão, oferecendo apoio logístico.", "feedback": "Você transformou uma situação em uma ponte com a comunidade. A fábrica passou a ser vista como aliada.", "casas": 3 },
@@ -52,7 +69,8 @@
     },
     {
       "id": "Q6",
-      "title": "DECISÃO 6: Treinamento interno ou contratação externa",
+      "title": "DECISÃO 6", 
+       "title2":"Treinamento interno ou contratação externa",
       "description": "Um novo projeto exige habilidades técnicas que a equipe atual ainda não domina. O RH sugere investir em treinamentos internos para desenvolver o time, enquanto o gestor do projeto propõe contratar especialistas externos para acelerar o resultado. Qual a sua decisão?",
       "answers": [
         { "text": "Investir em treinamentos internos para capacitar a equipe.", "feedback": "O time cresceu em conhecimento, fortaleceu vínculos e ficou ainda mais preparado para os próximos desafios.", "casas": 3 },
@@ -62,7 +80,8 @@
     },
     {
       "id": "Q7",
-      "title": "DECISÃO 7: Melhoria na área de descanso",
+      "title": "DECISÃO 7", 
+      "title2":"Melhoria na área de descanso",
       "description": "Os funcionários sugerem melhorias na área de descanso da fábrica. O RH defende investir em um espaço mais confortável, enquanto parte do conselho prefere manter como está e priorizar outras áreas. Qual decisão tomar?",
       "answers": [
         { "text": "Investir em melhorias no espaço de descanso com conforto e bem-estar.", "feedback": "Os colaboradores se sentiram valorizados, o clima organizacional se fortaleceu e a produtividade cresceu com mais qualidade de vida.", "casas": 3 },
@@ -72,7 +91,8 @@
     },
     {
       "id": "Q8",
-      "title": "DECISÃO 8: Feedback Contínuo",
+      "title": "DECISÃO 8", 
+      "title2":"Feedback Contínuo",
       "description": "Pesquisas internas apontam que os colaboradores recebem pouco retorno sobre seu desempenho. O RH propõe implantar ciclos curtos de feedback, mas parte da liderança defende manter apenas a avaliação anual. Qual a sua decisão?",
       "answers": [
         { "text": "Implantar ciclos de feedback contínuo e próximos.", "feedback": "Os colaboradores se sentiram apoiados, cresceram mais rápido e a cultura de desenvolvimento se fortaleceu.", "casas": 3 },
@@ -82,7 +102,8 @@
     },
     {
       "id": "Q9",
-      "title": "DECISÃO 9: Política de trabalho híbrido",
+      "title": "DECISÃO 9", 
+      "title2": "Política de trabalho híbrido",
       "description": "Após a pandemia, a diretoria precisa decidir se a empresa continuará 100% remota, adotará modelo híbrido ou retornará ao presencial. O RH defende o híbrido como equilíbrio, mas parte da liderança teme perda de produtividade fora do presencial. Qual a sua escolha?",
       "answers": [
         { "text": "Retornar ao modelo presencial.", "feedback": "A interação presencial foi retomada, mas alguns talentos optaram por sair em busca de flexibilidade.", "casas": 2 },
