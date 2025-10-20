@@ -1,23 +1,23 @@
 {
   "items": [
-  { "key": "cta.title", "value": "What's Your Path?" },
-  { "key": "cta.description", "value": "Tap to start" },
-  { "key": "cta.button", "value": "Start" },
+    { "key": "cta.title1", "value": "What's" },
+  { "key": "cta.title2", "value": "Your Path?" },
+  { "key": "cta.description", "value": "Our systems are in<br>crisis. You have little time<br>to read each situation and make<br>a decision." },
+    { "key": "cta.button", "value": "Start" },
 
-  { "key": "narrativa.title", "value": "What's Your Path?" },
-  { "key": "narrativa.description", "value": "Narrative in English..." },
-  { "key": "narrativa.button", "value": "Let's go!" },
+    { "key": "narrativa.title", "value": "What's Your Path?" },
+    { "key": "narrativa.description", "value": "Narrative..." },
+    { "key": "narrativa.button", "value": "Let's go!" },
 
-  { "key": "gameover.title", "value": "Game Over" },
-  { "key": "gameover.lastMessage", "value": "Your decisions had a positive impact on our growth. Critical thinking, decision-making, and problem-solving skills have been added to your progress card." },
-  { "key": "gameover.p1", "value": "Decision Making" },
-  { "key": "gameover.p2", "value": "Critical Thinking" },
-  { "key": "gameover.p3", "value": "Problem Solving" },
-
+    { "key": "gameover.title", "value": "END" },
+    { "key": "gameover.lastMessage", "value": "Your decisions positively impacted our growth. Critical thinking, decision-making, and problem-solving skills have been added to your progress card." },
+    { "key": "gameover.p1", "value": "Decision Making" },
+    { "key": "gameover.p2", "value": "Critical Thinking" },
+    { "key": "gameover.p3", "value": "Problem Solving" },
 
     { "key": "end.message", "value": "Thanks! Your data has been saved to your profile!" },
 
-	    { "key": "pop.exit", "value": "Do you really want to exit?" },
+    { "key": "pop.exit", "value": "Do you really want to exit?" },
     { "key": "pop.yes", "value": "Yes" },
     { "key": "pop.no", "value": "No" },
 

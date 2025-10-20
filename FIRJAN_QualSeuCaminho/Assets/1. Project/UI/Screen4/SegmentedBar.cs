@@ -81,9 +81,9 @@ public class SegmentedBar : MonoBehaviour
         foreach (Transform child in transform)
         {
             if (Application.isPlaying)
+            {
                 Destroy(child.gameObject);
-            else
-                DestroyImmediate(child.gameObject);
+            }
         }
 
         segmentos.Clear();
