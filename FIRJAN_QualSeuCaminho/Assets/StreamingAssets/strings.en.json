@@ -34,5 +34,20 @@
     { "key": "ui.cancel", "value": "Cancel" },
     { "key": "lang.pt", "value": "Português" },
     { "key": "lang.en", "value": "English" }
+    ,
+    {
+      "key": "popup.part1",
+      "value": "YOU ADVANCED"
+    }
+    ,
+    {
+      "key": "popup.part2",
+      "value": "HOUSES"
+    }
+    ,
+    {
+      "key": "gameplay.question",
+      "value": "What do you suggest?"
+    }
   ]
 }
