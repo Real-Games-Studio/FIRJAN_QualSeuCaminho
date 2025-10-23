@@ -105,7 +105,7 @@ public class CavasScreenGamePlay : CanvasScreen
 
         // reset indices and timers
         currentState = GameState.QuestionDisplayed;
-        currentCasaIndex = 0;
+        currentCasaIndex = GetFirstPlayableCasaIndex();
         currentQuestionIndex = 0;
 
         // Inicializar timers com valor configurado do JSON
@@ -200,7 +200,8 @@ public class CavasScreenGamePlay : CanvasScreen
     private void StartQuestion(int questionIndex)
     {
         // If player is already on the final casa, do not show a question — go to GameOver flow
-        if (casas != null && casas.Length > 0 && currentCasaIndex == casas.Length - 1)
+        int finalCasaIndex = GetLastPlayableCasaIndex();
+        if (finalCasaIndex >= 0 && currentCasaIndex >= finalCasaIndex)
         {
             currentState = GameState.GameOver;
             // ensure UI panels are hidden appropriately
@@ -317,7 +318,7 @@ public class CavasScreenGamePlay : CanvasScreen
         int moveBy = q.answers[answerIndex].casas;
         // compute target index but don't teleport yet
         int startIndex = currentCasaIndex;
-        int targetIndex = Mathf.Clamp(startIndex + moveBy, 0, this.casas.Length - 1);
+        int targetIndex = GetTargetCasaIndex(startIndex, moveBy);
 
         // show feedback (simple) and disable question UI
         if (feedbackUI.feedbackPanel != null) feedbackUI.feedbackPanel.SetActive(true);
@@ -401,7 +402,8 @@ public class CavasScreenGamePlay : CanvasScreen
         if (answerBButton != null) answerBButton.interactable = true;
 
         // if player reached final casa, go to next screen
-        if (currentCasaIndex == casas.Length - 1)
+        int finalPlayableIndex = GetLastPlayableCasaIndex();
+        if (finalPlayableIndex >= 0 && currentCasaIndex >= finalPlayableIndex)
         {
             currentState = GameState.GameOver;
             // small delay to show final state / celebration
@@ -484,6 +486,70 @@ public class CavasScreenGamePlay : CanvasScreen
     [SerializeField] private Image timerFillImage;
     [SerializeField] private float initialGameTime = 45f;
     private float currentTime;
+
+    private bool IsSkipCasa(GameObject casa)
+    {
+        return casa != null && casa.CompareTag("pula");
+    }
+
+    private int GetFirstPlayableCasaIndex()
+    {
+        if (casas == null || casas.Length == 0) return 0;
+        for (int i = 0; i < casas.Length; i++)
+        {
+            if (!IsSkipCasa(casas[i]))
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private int GetLastPlayableCasaIndex()
+    {
+        if (casas == null || casas.Length == 0) return -1;
+        for (int i = casas.Length - 1; i >= 0; i--)
+        {
+            if (!IsSkipCasa(casas[i]))
+            {
+                return i;
+            }
+        }
+        return casas.Length - 1;
+    }
+
+    private int GetTargetCasaIndex(int startIndex, int casasToAdvance)
+    {
+        if (casas == null || casas.Length == 0) return startIndex;
+
+        int clampedStart = Mathf.Clamp(startIndex, 0, casas.Length - 1);
+        if (casasToAdvance <= 0) return clampedStart;
+
+        int target = clampedStart;
+        int stepsRemaining = casasToAdvance;
+        int idx = clampedStart;
+
+        while (stepsRemaining > 0 && idx < casas.Length - 1)
+        {
+            idx++;
+            if (!IsSkipCasa(casas[idx]))
+            {
+                target = idx;
+                stepsRemaining--;
+            }
+        }
+
+        if (stepsRemaining > 0)
+        {
+            int lastPlayable = GetLastPlayableCasaIndex();
+            if (lastPlayable >= 0)
+            {
+                target = lastPlayable;
+            }
+        }
+
+        return Mathf.Clamp(target, 0, casas.Length - 1);
+    }
 
     private void UpdateTimerUI()
     {
