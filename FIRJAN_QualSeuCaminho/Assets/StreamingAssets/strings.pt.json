@@ -30,7 +30,11 @@
     },
     {
       "key": "gameover.title",
-      "value": "FIM"
+      "value": "RESULTADO FINAL"
+    },
+    {
+      "key": "gameover.subTitle",
+      "value": "Parabéns!"
     },
     {
       "key": "gameover.lastMessage",
@@ -50,7 +54,15 @@
     },
     {
       "key": "end.message",
-      "value": "Obrigado! Seus dados foram gravados no seu perfil!"
+      "value": "Seus dados foram gravados no seu perfil!"
+    },
+    {
+      "key": "end.subTitle",
+      "value": "Obrigado!"
+    },
+    {
+      "key": "end.button",
+      "value": "Finalizar"
     },
     {
       "key": "pop.exit",

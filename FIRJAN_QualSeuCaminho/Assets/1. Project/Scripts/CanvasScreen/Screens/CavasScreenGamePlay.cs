@@ -47,6 +47,7 @@ public class CavasScreenGamePlay : CanvasScreen
     {
         public GameObject feedbackPanel; // painel que contem todo o feedback
         public TMP_Text feedbackTitle;
+        public TMP_Text feedbackMoveCount; // deve mostrar apenas o a serem movidas. 3,2,1
     }
     [SerializeField] private FeedbackUI feedbackUI;
     [SerializeField] private float feedbackDuration = 2f; // tempo fixo que o feedback permanece visível antes da movimentação
@@ -57,6 +58,12 @@ public class CavasScreenGamePlay : CanvasScreen
 
     public override void TurnOn()
     {
+        //garantir q os botoes estejam nao selecionados
+        if (answerAButton != null) answerAButton.interactable = true;
+        if (answerBButton != null) answerBButton.interactable = true;
+
+
+
         // ao abrir a tela de jogo devemos atualizar o gamestate
         // garantir que qualquer estado/coroutine anterior seja cancelado e o jogo reseteado
         ResetGameplay();
@@ -315,6 +322,12 @@ public class CavasScreenGamePlay : CanvasScreen
         // show feedback (simple) and disable question UI
         if (feedbackUI.feedbackPanel != null) feedbackUI.feedbackPanel.SetActive(true);
         if (feedbackUI.feedbackTitle != null) feedbackUI.feedbackTitle.text = q.answers[answerIndex].feedback;
+        // Show casas to be moved in feedbackMoveCount
+        if (feedbackUI.feedbackMoveCount != null)
+        {
+            int casasToMove = q.answers[answerIndex].casas;
+            feedbackUI.feedbackMoveCount.text = casasToMove.ToString();
+        }
         if (questionUI.questionPanel != null) questionUI.questionPanel.SetActive(false);
 
         // disable answer buttons while moving

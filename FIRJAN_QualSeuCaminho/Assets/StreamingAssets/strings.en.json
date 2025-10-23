@@ -9,13 +9,19 @@
     { "key": "narrativa.description", "value": "Narrative..." },
     { "key": "narrativa.button", "value": "Let's go!" },
 
-    { "key": "gameover.title", "value": "END" },
+    { "key": "gameover.title", "value": "FINAL RESULT" },
+        {
+      "key": "gameover.subTitle",
+      "value": "Congratulations!"
+    },
     { "key": "gameover.lastMessage", "value": "Your decisions positively impacted our growth. Critical thinking, decision-making, and problem-solving skills have been added to your progress card." },
     { "key": "gameover.p1", "value": "Decision Making" },
     { "key": "gameover.p2", "value": "Critical Thinking" },
     { "key": "gameover.p3", "value": "Problem Solving" },
 
-    { "key": "end.message", "value": "Thanks! Your data has been saved to your profile!" },
+  { "key": "end.message", "value": "Your data has been saved to your profile!" },
+  { "key": "end.subTitle", "value": "Thank you!" },
+  { "key": "end.button", "value": "Finish!" },
 
     { "key": "pop.exit", "value": "Do you really want to exit?" },
     { "key": "pop.yes", "value": "Yes" },
