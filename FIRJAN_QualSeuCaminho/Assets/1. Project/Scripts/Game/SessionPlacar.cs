@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SessionPlacar : MonoBehaviour
@@ -9,13 +10,13 @@ public class SessionPlacar : MonoBehaviour
     public int pontos;
 
     public int TomadaDeDecisao;
-    public int TomadaDeDecisaoMax = 27;
+    public int TomadaDeDecisaoMax = 15;
     public int PensamentoCritico;
-    public int PensamentoCriticoMax = 27;
+    public int PensamentoCriticoMax = 15;
     public int SolucaoDeProblemas;
-    public int SolucaoDeProblemasMax = 18;
+    public int SolucaoDeProblemasMax = 15;
 
-
+    private Coroutine waitForLoaderRoutine;
 
     // Para cada resposta de 3 pontos:
     // +3 ponto em TomadaDeDecisao
@@ -42,11 +43,73 @@ public class SessionPlacar : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        TrySubscribeToConfig();
     }
 
     private void OnDestroy()
     {
+        if (GameDataLoader.instance != null)
+        {
+            GameDataLoader.instance.OnGameDataUpdated -= OnGameDataUpdated;
+        }
+
+        if (waitForLoaderRoutine != null)
+        {
+            StopCoroutine(waitForLoaderRoutine);
+            waitForLoaderRoutine = null;
+        }
+
         if (Instance == this) Instance = null;
+    }
+
+    private void Start()
+    {
+        ApplyConfigValues(GameDataLoader.instance?.loadedConfig);
+    }
+
+    private void TrySubscribeToConfig()
+    {
+        if (GameDataLoader.instance != null)
+        {
+            GameDataLoader.instance.OnGameDataUpdated -= OnGameDataUpdated;
+            GameDataLoader.instance.OnGameDataUpdated += OnGameDataUpdated;
+            ApplyConfigValues(GameDataLoader.instance.loadedConfig);
+        }
+        else if (waitForLoaderRoutine == null)
+        {
+            waitForLoaderRoutine = StartCoroutine(WaitForLoaderAndSubscribe());
+        }
+    }
+
+    private IEnumerator WaitForLoaderAndSubscribe()
+    {
+        while (GameDataLoader.instance == null)
+        {
+            yield return null;
+        }
+
+        waitForLoaderRoutine = null;
+        GameDataLoader.instance.OnGameDataUpdated -= OnGameDataUpdated;
+        GameDataLoader.instance.OnGameDataUpdated += OnGameDataUpdated;
+        ApplyConfigValues(GameDataLoader.instance.loadedConfig);
+    }
+
+    private void OnGameDataUpdated()
+    {
+        ApplyConfigValues(GameDataLoader.instance?.loadedConfig);
+    }
+
+    private void ApplyConfigValues(GameConfig config)
+    {
+        if (config == null) return;
+
+        TomadaDeDecisaoMax = config.tomadaDeDecisaoMax;
+        PensamentoCriticoMax = config.pensamentoCriticoMax;
+        SolucaoDeProblemasMax = config.solucaoDeProblemasMax;
+
+        TomadaDeDecisao = Mathf.Clamp(TomadaDeDecisao, 0, TomadaDeDecisaoMax);
+        PensamentoCritico = Mathf.Clamp(PensamentoCritico, 0, PensamentoCriticoMax);
+        SolucaoDeProblemas = Mathf.Clamp(SolucaoDeProblemas, 0, SolucaoDeProblemasMax);
     }
 
     // Instance methods
@@ -69,11 +132,11 @@ public class SessionPlacar : MonoBehaviour
         {
             TomadaDeDecisao += 3;
             PensamentoCritico += 3;
-            SolucaoDeProblemas += 2;
+            SolucaoDeProblemas += 3; // era 2
         }
         else if (value == 2)
         {
-            TomadaDeDecisao += 2;
+            TomadaDeDecisao += 1; // era 2
             PensamentoCritico += 1;
             SolucaoDeProblemas += 1;
         }

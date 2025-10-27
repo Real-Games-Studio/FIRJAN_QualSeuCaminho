@@ -36,4 +36,7 @@ public class GameConfig
     public string serverIP;
     public int serverPort;
     public float questionTime = 45f; // Tempo das perguntas em segundos
+    public int tomadaDeDecisaoMax = 15;
+    public int pensamentoCriticoMax = 15;       
+    public int solucaoDeProblemasMax = 15;
 }
