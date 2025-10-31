@@ -6,7 +6,7 @@
     },
     {
       "key": "cta.title2",
-      "value": "o Caminho?"
+      "value": "o Caminho"
     },
     {
       "key": "cta.description",
@@ -66,15 +66,15 @@
     },
     {
       "key": "pop.exit",
-      "value": "Quer mesmo sair?"
+      "value": "deseja sair do jogo?"
     },
     {
       "key": "pop.yes",
-      "value": "Sim"
+      "value": "SIM"
     },
     {
       "key": "pop.no",
-      "value": "Não"
+      "value": "NÃO"
     },
     {
       "key": "ui.lives",
@@ -107,7 +107,7 @@
     ,
     {
       "key": "popup.part1",
-      "value": "VOCê AVANÇOU"
+      "value": "VOCÊ AVANÇOU"
     }
     ,
     {
